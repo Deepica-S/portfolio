@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title >Deepica S - Photographs & Film</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --saffron:    #E8821A;
+    --vermillion: #C0392B;
+    --teal:       #1A8C78;
+    --gold:       #D4A017;
+    --deep:       #0D0A07;
+    --ink:        #1A1510;
+    --cream:      #F5EDD6;
+    --stone:      #8C7B5E;
+    --text:       #EDE0C4;
+    --muted:      #7A6E5F;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.6rem 3rem;
+    background: linear-gradient(to bottom, rgba(13,10,7,0.98) 0%, rgba(13,10,7,0) 100%);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.15em;
+    color: var(--cream);
+    text-decoration: none;
+    position: relative;
+  }
+  .nav-logo span { color: var(--saffron); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 1.0 rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--saffron); }
+
+  /* ─── HERO ─── */
+  .hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('dailyObj/IMG_8895.jpg');
+      background-size: cover;
+      background-position: center center;
+      filter: brightness(0.65) saturate(1.1);
+      transform: scaleX(-1);
+
+    }
+
+  .hero-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, var(--deep) 0%, rgba(13,10,7,0.3) 40%, transparent 70%),
+      linear-gradient(to right, rgba(13,10,7,0.6) 0%, transparent 60%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 3rem 5rem;
+    max-width: 900px;
+    animation: heroFade 1.4s ease-out 0.4s both;
+  }
+
+  @keyframes heroFade {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-size: 1.2em;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--saffron);
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+  .hero-name em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--saffron);
+    font-size: 0.65em;
+    display: block;
+    margin-top: 0.1em;
+  }
+
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--stone);
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: heroFade 1.4s ease-out 1.2s both;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--saffron), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 1; }
+  }
+
+  /* ─── SECTIONS ─── */
+  
+  section { padding: 1rem 3rem 2rem; }  /* top | sides | bottom */
+  #filmography { padding-bottom: 4rem; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.05em;
+    color: var(--cream);
+  }
+  .section-sub {
+    font-size: 1.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--saffron);
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--stone), transparent);
+    opacity: 0.3;
+  }
+
+  /* ─── SERIES GRID ─── */
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .series-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--ink);
+  }
+
+  .series-card--wide {
+    grid-column: span 2;
+    aspect-ratio: 16/9;  /* wider ratio looks better than 3/4 when spanning two tiles */
+  }
+
+  .series-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.5s ease;
+    filter: saturate(0.85) brightness(0.9);
+  }
+  .series-card:hover img {
+    transform: scale(1.06);
+    filter: saturate(1.2) brightness(1.0);
+  }
+
+  .series-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,10,7,0.92) 0%, rgba(13,10,7,0.1) 50%, transparent 100%);
+    transition: opacity 0.4s;
+  }
+
+  .series-card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.8rem;
+    transform: translateY(0);
+    transition: transform 0.4s ease;
+  }
+
+  .series-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 0.5rem;
+  }
+
+  .series-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+
+  .series-count {
+    font-size: 0.72rem;
+    color: var(--stone);
+    letter-spacing: 0.1em;
+  }
+
+  .series-view-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--saffron);
+    color: var(--saffron);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s, background 0.3s, color 0.3s;
+    cursor: pointer;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .series-card:hover .series-view-btn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .series-view-btn:hover {
+    background: var(--saffron);
+    color: var(--deep);
+  }
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(13,10,7,0.97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lightbox-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 4rem;
+  }
+
+  .lightbox-img {
+    max-height: 90vh;
+    max-width: 85vw;
+    object-fit: contain;
+    box-shadow: 0 0 120px rgba(232,130,26,0.1);
+    transition: opacity 0.3s;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    font-size: 2rem;
+    color: var(--stone);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1;
+    transition: color 0.2s;
+    z-index: 10;
+  }
+  .lightbox-close:hover { color: var(--saffron); }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--stone);
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+  .lightbox-nav:hover { color: var(--saffron); }
+  .lightbox-nav.prev { left: 1rem; }
+  .lightbox-nav.next { right: 1rem; }
+
+  .lightbox-caption {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .lightbox-caption-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--stone);
+  }
+  .lightbox-counter {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  /* ─── FILMOGRAPHY ─── */
+  .film-card {
+    display: grid;
+    grid-template-columns: 2fr 2fr;   /* 20 / 80 */
+    gap: 3rem;
+    align-items: stretch;
+    min-height: 420px;
+  }
+
+  .film-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding-right: 1rem;
+  }
+
+  .film-tag {
+    font-size: 0.82rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--saffron);
+  }
+
+  .film-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    letter-spacing: 0.06em;
+    color: var(--cream);
+    line-height: 1;
+  }
+
+  .film-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--stone);
+    margin-top: -0.4rem;
+  }
+
+  .film-desc {
+    font-size: 1.2rem;
+    color: var(--stone);
+    line-height: 1.8;
+  }
+
+  .film-details {
+    font-size: 0.8rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.3rem 0.8rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(140,123,94,0.15);
+  }
+
+  .film-details span:nth-child(odd) {
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    opacity: 0.7;
+    white-space: nowrap;
+  }
+
+  .film-details span:nth-child(even) {
+    font-size: 0.78rem;
+    color: var(--stone);
+  }
+
+  .film-preview {
+    position: relative;
+    border-right: 1px solid rgba(140,123,94,0.2);
+    padding: 50px;
+  }
+
+  .film-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    background: var(--ink);
+    border: 1px solid rgba(140,123,94,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .film-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.01) 2px,
+        rgba(255,255,255,0.01) 4px
+      );
+  }
+
+  .film-placeholder-inner {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .film-coming-soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .film-reel {
+    font-size: 3rem;
+    color: var(--saffron);
+    opacity: 0.3;
+    animation: reelPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes reelPulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(1.05); }
+  }
+
+  .film-coming-soon p {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    color: var(--stone);
+  }
+
+  .film-coming-soon span {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 768px) {
+    .film-card { grid-template-columns: 1fr; }
+    .film-meta { border-right: none; border-bottom: 1px solid rgba(140,123,94,0.2); padding-right: 0; padding-bottom: 1.5rem; }
+    .film-placeholder { min-height: 260px; }
+  }
+
+  /* ─── ABOUT ─── */
+  .about-section {
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .about-section::before {
+    content: 'ABOUT';
+    position: absolute;
+    top: -0.1em;
+    right: -0.05em;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(8rem, 18vw, 18rem);
+    color: rgba(232,130,26,0.04);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: 0.02em;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;  /* text left, image right */
+    gap: 6rem;
+    align-items: center;
+    max-width: 1100px;
+  }
+
+  .about-portrait {
+    position: relative;
+  }
+  .about-portrait-frame {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    position: relative;
+  }
+  .about-portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .about-portrait-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--saffron);
+    transform: translate(12px, 12px);
+    pointer-events: none;
+  }
+
+  .about-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 1.8rem;
+  }
+  .about-text h2 em {
+    font-style: italic;
+    color: var(--saffron);
+  }
+
+  .about-text p {
+    color: var(--stone);
+    line-height: 1.9;
+    font-size: 1.1rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .about-disciplines {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .discipline-tag {
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(232,130,26,0.35);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--saffron);
+  }
+
+  /* ─── CONTACT ─── */
+  .contact-section {
+    text-align: center;
+    position: relative;
+    padding: 4rem 3rem;
+    overflow: hidden;
+  }
+
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(232,130,26,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Smaller title for contact — override the global .section-title size */
+  .contact-section .section-title {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+  }
+
+  .contact-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--stone);
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-email,
+  .contact-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1rem, 2.2vw, 1.6rem);
+    letter-spacing: 0.12em;
+    color: var(--saffron);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(232,130,26,0.3);
+    padding-bottom: 0.15rem;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .contact-email:hover,
+  .contact-phone:hover {
+    color: var(--cream);
+    border-color: var(--cream);
+  }
+
+  .contact-icon {
+    font-size: 0.85em;
+    opacity: 0.7;
+  }
+
+  .social-row {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+  .social-row a {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .social-row a:hover { color: var(--saffron); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid rgba(140,123,94,0.15);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+  .footer-copy {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--cream);
+    opacity: 0.5;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-content { padding: 0 1.5rem 4rem; }
+    .hero-scroll { right: 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .lightbox-inner { padding: 2rem; }
+    .lightbox-img { max-width: 95vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><span></span></a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li> 
+    <li><a href="https://deepica-s.github.io/portfolio/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">PhotograpHY &amp; Film</div>
+    <h1 class="hero-name">
+      DEEPICA S
+      <em>Visual storyteller</em>
+    </h1>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header reveal">
+    <span class="section-title">PHOTOGRAPHY</span>
+    <span class="section-sub">Selected Series</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="series-grid" id="seriesGrid">
+
+    <!-- LANDSCAPES -->
+    <div class="series-card series-card--wide reveal" onclick="openLightbox('landscapes', 0)">
+      <img src="landscapes/IMG_1216.jpg" alt="Landscapes"/>
+      <div class="series-card-overlay"></div>
+      <div class="series-card-info">
+        <div class="series-name">Landscapes</div>
+        <div class="series-count">6 photographs</div>
+        <button class="series-view-btn">View Series →</button>
+      </div>
+    </div>
+
+    <!-- TEMPLES OF SOUTH INDIA -->
+    <div class="series-card reveal" onclick="openLightbox('architecture', 0)">
+      <img src="architecture/IMG_1036.jpg" alt="Architecture"/>
+      <div class="series-card-overlay"></div>
+      <div class="series-card-info">
+        <div class="series-name">Architecture</div>
+        <div class="series-count">7 photographs</div>
+        <button class="series-view-btn">View Series →</button>
+      </div>
+    </div>
+    
+    <!-- DAILY OBJECTS  -->
+    <div class="series-card reveal" onclick="openLightbox('dailyObjects', 0)">
+      <img src="dailyObj/IMG_0131.jpg" alt="Candid"/>
+      <div class="series-card-overlay"></div>
+      <div class="series-card-info">
+        <div class="series-name">Daily Objects</div>
+        <div class="series-count">10 photographs</div>
+        <button class="series-view-btn">View Series →</button>
+      </div>
+    </div>
+
+
+    <!-- CANDID  -->
+    <div class="series-card reveal" onclick="openLightbox('candids', 0)">
+      <img src="candid/IMG_1033.JPG" alt="Candids"/>
+      <div class="series-card-overlay"></div>
+      <div class="series-card-info">
+        <div class="series-name">Candids</div>
+        <div class="series-count">10 photographs</div>
+        <button class="series-view-btn">View Series →</button>
+      </div>
+    </div>
+
+    <!-- NATURE -->
+    <div class="series-card reveal" onclick="openLightbox('nature', 0)">
+      <img src="nature/IMG_0362.JPG" alt="Nature"/>
+      <div class="series-card-overlay"></div>
+      <div class="series-card-info">
+        <div class="series-name">Nature</div>
+        <div class="series-count">8 photographs</div>
+        <button class="series-view-btn">View Series →</button>
+      </div>
+    </div>
+
+    <!-- MISCELLANEOUS -->
+
+    <div class="series-card reveal" onclick="openLightbox('miscellaneous', 0)">
+      <img src="miscellaneous/IMG_9528.JPG" alt="Miscellaneous"/>
+      <div class="series-card-overlay"></div>
+      <div class="series-card-info">
+        <div class="series-name">Miscellaneous</div>
+        <div class="series-count">6 photographs</div>
+        <button class="series-view-btn">View Series →</button>
+      </div>
+    </div>
+
+    <!-- PORTRAITS -->
+
+    <div class="series-card reveal" onclick="openLightbox('portraits', 0)">
+      <img src="portraits/tiger_rice.JPG" alt="Portraits"/>
+      <div class="series-card-overlay"></div>
+      <div class="series-card-info">
+        <div class="series-name">Portraits</div>
+        <div class="series-count">13 photographs</div>
+        <button class="series-view-btn">View Series →</button>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<section id="filmography">
+  <div class="section-header reveal">
+    <span class="section-title">FILMOGRAPHY</span>
+    <span class="section-sub">Documentary</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="film-card reveal">
+    <div class="film-preview">
+      <iframe width="100%" height="420" src="https://player.vimeo.com/video/76979871"
+        frameborder="0" allowfullscreen style="display:block;"></iframe>
+    </div>
+    <div class="film-meta">
+      <div class="film-tag">Documentary · 2021</div>
+      <h3 class="film-title">The New Normal</h3>
+      <p class="film-subtitle">Changing Trends in the Pandemic</p>
+      <p class="film-desc">
+        As lockdowns reshaped daily life, a quiet revolution unfolded in home kitchens across the city. This documentary follows the parallel stories of first-time homebakers who found purpose and livelihood through small, indie-style bakeries — and the established patisseries that had to reimagine everything they knew to survive.
+      </p>
+      <p class="film-desc">
+        A story about resilience, reinvention, and the universal comfort of bread.
+      </p>
+      <div class="film-details">
+        <span>Direction</span>
+        <span>Deepica S, Ponni Suresh</span>
+        <span>Theme</span>
+        <span>Food · Pandemic · Entrepreneurship</span>
+      </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-grid">
+    <div class="about-portrait reveal">
+      <div class="about-portrait-frame">
+        <img src="displayPic/deepica_portrait.JPG" alt="Portrait"/>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <h2>A lens for the<br/><em>extraordinary</em><br/>in the everyday.</h2>
+      <p>
+      I'm an aspiring photographer with great creative, observational and analytical skills. The series above is a display of my passion for framing the beauty of extraordinary marvels and ordinary subjects we encounter on a daily basis. With a belief that every frame is a doorway - an invitation to see the world more slowly and deeply.
+      </p>
+      <p>
+        Based in Chennai, I am looking forward to work in the media sector, which will enhance my skills and involve teamwork and fun.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="reveal">
+    <div class="section-header" style="justify-content:center; margin-bottom:1rem;">
+      <span class="section-title">LET'S WORK</span>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:deepicambys@gmail.com" class="contact-email">
+        <span class="contact-icon">✉</span>
+        deepicambys@gmail.com
+      </a>
+      <a href="tel:+916379169720" class="contact-phone">
+        <span class="contact-icon">↗</span>
+        +91 6379169720
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">DEEPICA.S</div>
+  <div class="footer-copy">© 2026 - All rights reserved</div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav prev" onclick="lightboxNav(-1)">‹</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt=""/>
+    <button class="lightbox-nav next" onclick="lightboxNav(1)">›</button>
+    <div class="lightbox-caption">
+      <div class="lightbox-caption-title" id="lightboxCaption"></div>
+      <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── SERIES DATA ──
+  const series = {
+    architecture: {
+      title: 'Temples of South India',
+      images: [
+        { src: 'architecture/IMG_1833.JPG',  caption: 'Painted Gopuram — Temple tower at dusk' },
+        { src: 'architecture/IMG_0934.jpg',  caption: 'Temple Guardian — Stone carving with golden corridor' },
+        { src: 'architecture/IMG_1036.jpg',  caption: 'The Great Hall — Thousand-column mandapam' },
+        { src: 'architecture/IMG_1412.JPG',  caption: 'Golden Chariot — Temple vehicle at night' },
+        { src: 'architecture/IMG_1747.JPG',  caption: 'The Ascent — Pilgrims climbing to the temple' },
+        { src: 'architecture/IMG_0815.jpg',  caption: 'Sacred Gateway — Framed view of the gopuram' },
+        { src: 'architecture/IMG_0893.JPG',  caption: 'Tower of Gods — Dravidian temple architecture' },
+      ]
+    },
+
+    landscapes: {
+      title: 'Indian Landscapes',
+      images: [
+        { src: 'landscapes/IMG_0095.JPG',  caption: '' },
+        { src: 'landscapes/IMG_0297.JPG',  caption: '' },
+        { src: 'landscapes/IMG_0614 straight.jpg',  caption: '' },
+        { src: 'landscapes/IMG_1216.jpg',  caption: '' },
+        { src: 'landscapes/IMG_8974.JPG',  caption: '' },
+        { src: 'landscapes/3X6A7688.jpg',  caption: '' },
+      ]
+    },
+
+    candids : {
+      title: 'Candid Photography',
+      images: [
+       {src: 'candid/IMG_9940.jpg', caption: ''},
+       {src: 'candid/IMG_9891.jpg', caption: ''},
+       {src: 'candid/IMG_1033.jpg', caption: ''},
+       {src: 'candid/IMG_0002.jpg', caption: ''},
+       {src: 'candid/IMG_0058.jpg', caption: ''},
+       {src: 'candid/IMG_0080.jpg', caption: ''},
+       {src: 'candid/IMG_0086.jpg', caption: ''},
+       {src: 'candid/IMG_0370.jpg', caption: ''},
+       {src: 'candid/IMG_0925.jpg', caption: ''},
+       {src: 'candid/IMG_9956.jpg', caption: ''},
+      ]
+    },
+
+    dailyObjects : {
+      title: 'Everyday Objects',
+      images: [
+       {src: 'dailyObj/IMG_0070.jpg', caption: ''},
+       {src: 'dailyObj/IMG_0131.jpg', caption: ''},
+       {src: 'dailyObj/IMG_1875.jpg', caption: ''},
+       {src: 'dailyObj/IMG_9587.jpg', caption: ''},
+       {src: 'dailyObj/IMG_8135.jpg', caption: ''},
+       {src: 'dailyObj/IMG_8613.jpg', caption: ''},
+       {src: 'dailyObj/IMG_8895.jpg', caption: ''},
+       {src: 'dailyObj/IMG_8925.jpg', caption: ''},
+       {src: 'dailyObj/IMG_9455.jpg', caption: ''},
+       {src: 'dailyObj/IMG_9836.jpg', caption: ''},
+       {src: 'dailyObj/IMG_9877.jpg', caption: ''},
+       {src: 'dailyObj/IMG_9987.jpg', caption: ''},
+      ]
+    },
+
+    miscellaneous : {
+      title: 'Miscellaneous',
+      images: [
+        {src:'miscellaneous/IMG_0020.JPG', caption: ''},
+        {src:'miscellaneous/IMG_0350.JPG', caption: ''},
+        {src:'miscellaneous/IMG_0372.JPG', caption: ''},
+        {src:'miscellaneous/IMG_0529.JPG', caption: ''},
+        {src:'miscellaneous/IMG_9501.JPG', caption: ''},
+        {src:'miscellaneous/IMG_9528.JPG', caption: ''},
+        {src: 'dailyObj/IMG_9324.jpg', caption: ''},
+      ]
+    },
+
+    nature : {
+      title: 'Nature',
+      images: [
+        {src:'nature/IMG_0180.JPG', caption: ''},
+        {src:'nature/IMG_0279.JPG', caption: ''},
+        {src:'nature/IMG_0362.JPG', caption: ''},
+        {src:'nature/IMG_0472.JPG', caption: ''},
+        {src:'nature/IMG_1578.JPG', caption: ''},
+        {src:'nature/IMG_8100 cropped.jpg', caption: ''},
+        {src:'nature/IMG_9668 cropped.jpg', caption: ''},
+        {src:'nature/IMG_9676.jpg', caption: ''},
+      ]
+    },
+
+    portraits : {
+      title: 'Portraits',
+      images: [
+        {src:'portraits/krisha_radha_crop.jpg', caption: ''},
+        {src:'portraits/flower_man.JPG', caption: ''},
+        {src:'portraits/langur.jpg', caption: ''},
+        {src:'portraits/blue_saree.JPG', caption: ''},
+        {src:'portraits/egypt.JPG', caption: ''},
+        {src:'portraits/lady.jpg', caption: ''},
+        {src:'portraits/pink_shirt.JPG', caption: ''},
+        {src:'portraits/stone.JPG', caption: ''},
+        {src:'portraits/stoneface.jpg', caption: ''},
+        {src:'portraits/tiger_rice.jpg', caption: ''},
+        {src:'portraits/vendor.jpg', caption: ''},
+        {src:'portraits/art_village.JPG', caption: ''},
+        {src:'portraits/kids.JPG', caption: ''},
+      ]
+    },
+
+
+  };
+
+  let currentSeries = null;
+  let currentIndex  = 0;
+
+  function openLightbox(seriesKey, idx) {
+    currentSeries = seriesKey;
+    currentIndex  = idx;
+    showLightboxImage();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function lightboxNav(dir) {
+    const imgs = series[currentSeries].images;
+    currentIndex = (currentIndex + dir + imgs.length) % imgs.length;
+    showLightboxImage();
+  }
+
+  function showLightboxImage() {
+    const imgs = series[currentSeries].images;
+    const img  = imgs[currentIndex];
+    const el   = document.getElementById('lightboxImg');
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.src = img.src;
+      el.onload = () => { el.style.opacity = '1'; };
+      document.getElementById('lightboxCaption').textContent = img.caption;
+      document.getElementById('lightboxCounter').textContent =
+        (currentIndex + 1) + ' / ' + imgs.length;
+    }, 150);
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this || e.target === document.querySelector('.lightbox-inner')) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') lightboxNav(1);
+    if (e.key === 'ArrowLeft')  lightboxNav(-1);
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
