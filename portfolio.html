@@ -935,10 +935,36 @@
   </div>
 
   <div class="film-card reveal">
-    <div class="film-preview">
-      <iframe width="100%" height="420" src="https://drive.google.com/file/d/1s4qBlshSS82p6CllSv_BZKJSR-fVsiPJ/preview"
-        frameborder="0" allowfullscreen style="display:block;"></iframe>
-    </div>
+   <div class="film-preview" style="position: relative;">
+  
+  <div id="videoThumb" onclick="playVideo()" style="
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    z-index: 2;
+  ">
+    <img src="thumbnail.png" style="width:100%; height:100%; object-fit:cover;"/>
+    
+    <!-- Play button -->
+    <div style="
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px; height: 70px;
+      background: rgba(232,130,26,0.9);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; color: white;
+    ">▶</div>
+  </div>
+
+  <iframe id="videoFrame" width="100%" height="420"
+    src=""
+    data-src="https://drive.google.com/file/d/1s4qBlshSS82p6CllSv_BZKJSR-fVsiPJ/preview"
+    frameborder="0" allowfullscreen style="display:block;">
+  </iframe>
+
+</div>
     <div class="film-meta">
       <div class="film-tag">Documentary · 2021</div>
       <h3 class="film-title">The New Normal</h3>
@@ -1018,6 +1044,13 @@
 </div>
 
 <script>
+
+  function playVideo() {
+    const frame = document.getElementById('videoFrame');
+    frame.src = frame.dataset.src; 
+    document.getElementById('videoThumb').style.display = 'none';
+  }
+ 
   // ── SERIES DATA ──
   const series = {
     architecture: {
@@ -1072,7 +1105,6 @@
        {src: 'dailyObj/IMG_8613.JPG', caption: ''},
        {src: 'dailyObj/IMG_8895.jpg', caption: ''},
        {src: 'dailyObj/IMG_8925.jpg', caption: ''},
-       {src: 'dailyObj/IMG_9455.JPG', caption: ''},
        {src: 'dailyObj/IMG_9836.jpg', caption: ''},
        {src: 'dailyObj/IMG_9877.jpg', caption: ''},
        {src: 'dailyObj/IMG_9987.JPG', caption: ''},
@@ -1088,7 +1120,8 @@
         {src:'miscellaneous/IMG_0529.jpg', caption: ''},
         {src:'miscellaneous/IMG_9501.JPG', caption: ''},
         {src:'miscellaneous/IMG_9528.JPG', caption: ''},
-        {src: 'dailyObj/IMG_9324.JPG', caption: ''},
+        {src:'miscellaneous/IMG_9455.JPG', caption: ''},
+        {src:'dailyObj/IMG_9324.JPG', caption: ''},
       ]
     },
 
