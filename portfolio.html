@@ -801,11 +801,51 @@
    .film-preview iframe {
      height: 220px;
    }
+
+  * { cursor: none !important; }
+
+  #cursor {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid var(--saffron);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.12s ease, width 0.2s ease, 
+                height 0.2s ease, background 0.2s ease;
+    box-shadow: 0 0 12px rgba(232,130,26,0.4),
+                inset 0 0 12px rgba(232,130,26,0.05);
+  }
+  
+  #cursor-dot {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    background: var(--saffron);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 6px var(--saffron);
+  }
+  
+  /* Expand ring when hovering links/buttons */
+  body.cursor-hover #cursor {
+    width: 56px;
+    height: 56px;
+    background: rgba(232,130,26,0.08);
+    box-shadow: 0 0 24px rgba(232,130,26,0.5),
+                inset 0 0 20px rgba(232,130,26,0.08);
+  }
+  
  }
 </style>
 </head>
 <body>
-
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo"><span></span></a>
@@ -891,7 +931,7 @@
 
     <!-- NATURE -->
     <div class="series-card reveal" onclick="openLightbox('nature', 0)">
-      <img src="nature/IMG_0362.JPG" alt="Nature"/>
+      <img src="nature/IMG_0472.jpg" alt="Nature"/>
       <div class="series-card-overlay"></div>
       <div class="series-card-info">
         <div class="series-name">Nature</div>
@@ -1070,11 +1110,11 @@
       title: 'Indian Landscapes',
       images: [
         { src: 'landscapes/IMG_0095.JPG',  caption: '' },
-        { src: 'landscapes/IMG_0297.JPG',  caption: '' },
         { src: 'landscapes/IMG_0614 straight.jpg',  caption: '' },
         { src: 'landscapes/IMG_1216.jpg',  caption: '' },
         { src: 'landscapes/IMG_8974.jpg',  caption: '' },
         { src: 'landscapes/3X6A7688.jpg',  caption: '' },
+        { src: 'landscapes/IMG_0297.JPG',  caption: '' },
       ]
     },
 
