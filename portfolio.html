@@ -802,12 +802,17 @@
    }
  }
 
- #comet-canvas {
-   position: fixed;
-   inset: 0;
-   pointer-events: none;
-   z-index: 99999;
- }
+ #cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--saffron);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100000;
+  transform: translate(-50%, -50%);
+  filter: blur(1px);
+}
 
  .trail {
   position: fixed;
@@ -828,8 +833,8 @@
 </style>
 </head>
 <body>
-
-<canvas id="comet-canvas"></canvas>
+ 
+<div id="cursor"></div>
  
 <!-- NAV -->
 <nav>
@@ -1247,58 +1252,54 @@
   }, { threshold: 0.1 });
   reveals.forEach(el => observer.observe(el));
 
- if (window.innerWidth > 768) {
+  if (window.innerWidth > 768) {
  
-   const canvas = document.getElementById("comet-canvas");
-   const ctx = canvas.getContext("2d");
+   const cursor = document.getElementById("cursor");
  
-   let w, h;
-   function resize() {
-     w = canvas.width = window.innerWidth;
-     h = canvas.height = window.innerHeight;
-   }
-   resize();
-   window.addEventListener("resize", resize);
+   let mouseX = window.innerWidth / 2;
+   let mouseY = window.innerHeight / 2;
  
-   let mouse = { x: w / 2, y: h / 2 };
-   let prev = { x: mouse.x, y: mouse.y };
- 
-   document.addEventListener("mousemove", e => {
-     mouse.x = e.clientX;
-     mouse.y = e.clientY;
-   });
+   let cursorX = mouseX;
+   let cursorY = mouseY;
  
    const trail = [];
-
+ 
+   document.addEventListener("mousemove", e => {
+     mouseX = e.clientX;
+     mouseY = e.clientY;
+   });
+ 
    function animateCursor() {
-     cursorX += (mouseX - cursorX) * 0.12;
-     cursorY += (mouseY - cursorY) * 0.12;
-   
+     // smooth follow
+     cursorX += (mouseX - cursorX) * 0.15;
+     cursorY += (mouseY - cursorY) * 0.15;
+ 
      cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-   
-     // Add to trail
+ 
+     // trail
      trail.push({ x: cursorX, y: cursorY });
-     if (trail.length > 12) trail.shift();
-   
+     if (trail.length > 10) trail.shift();
+ 
      drawTrail();
+ 
      requestAnimationFrame(animateCursor);
    }
-   
+ 
    function drawTrail() {
      document.querySelectorAll(".trail").forEach(el => el.remove());
-   
+ 
      trail.forEach((pos, i) => {
        const t = document.createElement("div");
        t.className = "trail";
        t.style.left = pos.x + "px";
        t.style.top = pos.y + "px";
        t.style.opacity = i / trail.length;
-       t.style.transform = "translate(-50%, -50%) scale(" + (i / trail.length) + ")";
+       t.style.transform = `translate(-50%, -50%) scale(${i / trail.length})`;
        document.body.appendChild(t);
      });
    }
-    
-   animate();
+ 
+   animateCursor();
  }
  
 </script>
