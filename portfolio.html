@@ -808,6 +808,17 @@
    pointer-events: none;
    z-index: 99999;
  }
+
+ .trail {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: var(--saffron);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(6px);
+  z-index: 99998;
+}
  
  /* Hide default cursor on desktop only */
  @media (min-width: 769px) {
@@ -1257,80 +1268,36 @@
      mouse.y = e.clientY;
    });
  
-   let trail = [];
- 
-   function addTrail() {
-     const dx = mouse.x - prev.x;
-     const dy = mouse.y - prev.y;
-     const speed = Math.sqrt(dx * dx + dy * dy);
- 
-     trail.push({
-       x: mouse.x,
-       y: mouse.y,
-       vx: dx * 0.1,
-       vy: dy * 0.1,
-       life: 1,
-       size: Math.min(6, 2 + speed * 0.2)
+   const trail = [];
+
+   function animateCursor() {
+     cursorX += (mouseX - cursorX) * 0.12;
+     cursorY += (mouseY - cursorY) * 0.12;
+   
+     cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+   
+     // Add to trail
+     trail.push({ x: cursorX, y: cursorY });
+     if (trail.length > 12) trail.shift();
+   
+     drawTrail();
+     requestAnimationFrame(animateCursor);
+   }
+   
+   function drawTrail() {
+     document.querySelectorAll(".trail").forEach(el => el.remove());
+   
+     trail.forEach((pos, i) => {
+       const t = document.createElement("div");
+       t.className = "trail";
+       t.style.left = pos.x + "px";
+       t.style.top = pos.y + "px";
+       t.style.opacity = i / trail.length;
+       t.style.transform = "translate(-50%, -50%) scale(" + (i / trail.length) + ")";
+       document.body.appendChild(t);
      });
- 
-     prev.x = mouse.x;
-     prev.y = mouse.y;
    }
- 
-   function updateTrail() {
-     for (let i = 0; i < trail.length; i++) {
-       let p = trail[i];
- 
-       p.x += p.vx;
-       p.y += p.vy;
-       p.life -= 0.02;
-       p.size *= 0.96;
- 
-       if (p.life <= 0) {
-         trail.splice(i, 1);
-         i--;
-       }
-     }
-   }
- 
-   function draw() {
-     ctx.clearRect(0, 0, w, h);
- 
-     // glow layer
-     ctx.globalCompositeOperation = "lighter";
- 
-     trail.forEach(p => {
-       const gradient = ctx.createRadialGradient(
-         p.x, p.y, 0,
-         p.x, p.y, p.size * 4
-       );
- 
-       gradient.addColorStop(0, `rgba(232,130,26,${p.life})`);
-       gradient.addColorStop(0.3, `rgba(232,130,26,${p.life * 0.6})`);
-       gradient.addColorStop(1, `rgba(232,130,26,0)`);
- 
-       ctx.fillStyle = gradient;
-       ctx.beginPath();
-       ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
-       ctx.fill();
-     });
- 
-     // comet head (sharp core)
-     ctx.beginPath();
-     ctx.arc(mouse.x, mouse.y, 3.5, 0, Math.PI * 2);
-     ctx.fillStyle = "rgba(255,200,120,1)";
-     ctx.fill();
- 
-     ctx.globalCompositeOperation = "source-over";
-   }
- 
-   function animate() {
-     addTrail();
-     updateTrail();
-     draw();
-     requestAnimationFrame(animate);
-   }
- 
+    
    animate();
  }
  
