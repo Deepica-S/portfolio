@@ -800,46 +800,49 @@
    .film-preview iframe {
      height: 220px;
    }
-
-  * { cursor: none !important; }
-
-  #cursor {
-    position: fixed;
-    width: 36px;
-    height: 36px;
-    border: 1.5px solid var(--saffron);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.12s ease, width 0.2s ease, 
-                height 0.2s ease, background 0.2s ease;
-    box-shadow: 0 0 12px rgba(232,130,26,0.4),
-                inset 0 0 12px rgba(232,130,26,0.05);
-  }
-  
-  #cursor-dot {
-    position: fixed;
-    width: 5px;
-    height: 5px;
-    background: var(--saffron);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 6px var(--saffron);
-  }
-  
-  /* Expand ring when hovering links/buttons */
-  body.cursor-hover #cursor {
-    width: 56px;
-    height: 56px;
-    background: rgba(232,130,26,0.08);
-    box-shadow: 0 0 24px rgba(232,130,26,0.5),
-                inset 0 0 20px rgba(232,130,26,0.08);
-  }
-  
  }
+@media (min-width: 769px) {
+  * { cursor: none !important; }
+}
+
+/* Cursor ring */
+#cursor {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--saffron);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease, width 0.2s ease, 
+              height 0.2s ease, background 0.2s ease;
+  box-shadow: 0 0 12px rgba(232,130,26,0.4),
+              inset 0 0 12px rgba(232,130,26,0.05);
+}
+
+/* Center dot */
+#cursor-dot {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  background: var(--saffron);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px var(--saffron);
+}
+
+/* Hover effect */
+body.cursor-hover #cursor {
+  width: 56px;
+  height: 56px;
+  background: rgba(232,130,26,0.08);
+  box-shadow: 0 0 24px rgba(232,130,26,0.5),
+              inset 0 0 20px rgba(232,130,26,0.08);
+}
+ 
 </style>
 </head>
 <body>
@@ -1260,6 +1263,49 @@
     });
   }, { threshold: 0.1 });
   reveals.forEach(el => observer.observe(el));
+
+ if (window.innerWidth > 768) {
+
+  const cursor = document.getElementById("cursor");
+  const dot = document.getElementById("cursor-dot");
+
+  let mouseX = 0, mouseY = 0;
+  let cursorX = 0, cursorY = 0;
+
+  // Track mouse
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // dot follows instantly
+    dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+  });
+
+  // Smooth trailing effect
+  function animateCursor() {
+    cursorX += (mouseX - cursorX) * 0.15;
+    cursorY += (mouseY - cursorY) * 0.15;
+
+    cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  // Hover interactions
+  const hoverables = document.querySelectorAll("a, button, .series-card");
+
+  hoverables.forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      document.body.classList.add("cursor-hover");
+    });
+    el.addEventListener("mouseleave", () => {
+      document.body.classList.remove("cursor-hover");
+    });
+  });
+
+}
+ 
 </script>
 </body>
 </html>
